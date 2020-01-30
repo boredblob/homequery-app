@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/2000/svg">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <title>HomeQuery</title>
+  <meta name="author" content="Omer">
+  <meta name="description" content="Searching for things made a little easier">
+  <meta name="theme-color" content="#111111">
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Domine&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <link rel="manifest" href="/manifest.json">
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-144.png">
+  <link rel="apple-touch-startup-image" href="/icon-512.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="modulepreload" href="/scripts/createElement.mjs">
+  <link rel="modulepreload" href="/scripts/addFilm.mjs">
+  <link rel="modulepreload" href="/scripts/removeFilm.mjs">
+  <link rel="modulepreload" href="/scripts/editFilm.mjs">
+  <link rel="modulepreload" href="/scripts/crypto.mjs">
+  <link rel="modulepreload" href="/scripts/results.mjs">
+</head>
+<body>
+  <button class="sidepanel-btn">
+    <img src="/images/menu.svg" alt="Menu">
+  </button>
+  <span class="online-indicator">Online</span>
+  <div class="overlay"></div>
+  <main>
+    <h1>DVDs</h1>
+    <div class="searchbar">
+      <input type="text" autocomplete="off" spellcheck="false" placeholder="Search">
+      <button>+</button>
+    </div>
+    <div class="results">
+      <svg class="spinner" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <path d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50"></path>
+      </svg>
+    </div>
+  </main>
+  <aside class="sidepanel">
+    <h2>Search for</h2>
+    <ul class="search-list">
+      <a href="/"><li>DVDs</li></a>
+      <a href="/books"><li>Books</li></a>
+    </ul>
+    <div class="settings">
+      <span class="theme">
+        <span>Theme</span>
+        <button><img src="/images/sun.svg" alt="Light"></button>
+      </span>
+      <span class="token">
+        <button>Client Token</button>
+      </span>
+    </div>
+  </aside>
+  <script src="/scripts/theme.js"></script>
+  <script src="/scripts/token.js"></script>
+  <script type="module" src="/app.mjs"></script>
+  <script src="/scripts/sidepanel.js"></script>
+</body>
+</html>
