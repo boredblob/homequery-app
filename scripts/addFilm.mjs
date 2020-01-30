@@ -69,7 +69,7 @@ async function addFilm(e) {
       body: str
     };
 
-    const response = await fetch("http://localhost:8080/dvd/add", options);
+    const response = await fetch("https://homequery.herokuapp.com/dvd/add", options);
     if (response.ok) {
       loadFilms();
       addFilmBtn.onclick = newEntry; 

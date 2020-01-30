@@ -61,7 +61,7 @@ async function editFilm(e, id) {
       body: str
     };
 
-    const response = await fetch("http://localhost:8080/dvd/edit", options);
+    const response = await fetch("https://homequery.herokuapp.com/dvd/edit", options);
     if (response.ok) {
       loadFilms();
       document.body.onclick = null;

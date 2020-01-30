@@ -17,7 +17,7 @@ export async function removeEntry() {
       body: str
     };
 
-    const response = await fetch("http://localhost:8080/dvd/remove", options);
+    const response = await fetch("https://homequery.herokuapp.com/dvd/remove", options);
     if (response.ok) {
       loadFilms();
     } else {
