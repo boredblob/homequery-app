@@ -27,6 +27,8 @@ body {
   --accent-background-btn: #1e2d3f;
   --accent-background-btn-hover: #263e5c;
 
+  --error: maroon;
+
   --thin-border: 1px solid rgba(180, 191, 204, 0.7);
   --heavy-border: 1px solid rgba(30, 45, 63, 0.5);
 
@@ -202,6 +204,18 @@ body {
   background: transparent;
   transition: background-color 0.3s ease-in-out;
   z-index: 2;
+}
+
+.error {
+  position: absolute;
+  width: 70vw;
+  margin: 0 15vw;
+  color: var(--error);
+  text-align: center;
+  top: 5vh;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1;
 }
 
 .online-indicator {

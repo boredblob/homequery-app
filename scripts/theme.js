@@ -16,7 +16,7 @@ function toggleTheme() {
 
 function updateUI() {
   if (theme === "dark") {
-    document.body.style = "--primary: #fbffff; --background: #111414; --heavy-border: 1px solid rgba(255, 202, 186, 0.3);"
+    document.body.style = "--primary: #fbffff; --background: #111414; --heavy-border: 1px solid rgba(255, 202, 186, 0.3); --error: #F0002E;"
 
     themeBtnImage.src = "/images/moon.svg";
     themeBtnImage.alt = "Dark";

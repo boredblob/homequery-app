@@ -1,6 +1,7 @@
 import {createElement} from "/scripts/createElement.mjs";
 import {loadFilms} from "/scripts/results.mjs";
 import {getSignature} from "/scripts/crypto.mjs";
+import {showError} from "/scripts/error.mjs";
 
 const results = document.querySelector("main .results");
 const addFilmBtn = document.querySelector("main .searchbar button");
@@ -72,6 +73,14 @@ async function addFilm(e) {
     if (response.ok) {
       loadFilms();
       addFilmBtn.onclick = newEntry; 
+    } else {
+      if (response.status === 403) {
+        if (window.localStorage.getItem("token")) {
+          showError("Sorry, the client token is incorrect.");
+        } else {
+          showError("Please enter the client token to modify the list.");
+        }
+      }
     }
   }
 }
