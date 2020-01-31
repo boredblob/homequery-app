@@ -21,7 +21,7 @@ export async function removeEntry() {
       .catch(err => {
         console.log("Error adding film:\n" + err);
         if (!navigator.onLine) {
-          showError("Modifiying the list isn't possible while offline.");
+          showError("Sorry, modifiying the list isn't possible while offline.");
         }
       });;
     if (response.ok) {
