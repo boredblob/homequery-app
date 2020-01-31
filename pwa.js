@@ -21,7 +21,10 @@
     prompt.style.display = "";
     if (deferredPrompt) {deferredPrompt.prompt();
       deferredPrompt.userChoice
-      .then(() => {
+      .then(choice => {
+        if (choice.outcome === "accepted") {
+          prompt.remove();
+        }
         deferredPrompt = null;
       });
     }
