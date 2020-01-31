@@ -100,17 +100,18 @@ body {
   margin-top: 4vh;
 }
 
-.search-list li {
+.search-list span {
+  display: block;
   border-bottom: var(--thin-border);
   padding: 0.2rem 1rem;
   transition: background-color 0.15s ease-in-out;
 }
 
-.search-list a:first-of-type li {
+.search-list a:first-of-type span {
   border-top: var(--thin-border);
 }
 
-.search-list li:hover {
+.search-list span:hover {
   background-color: rgba(255, 202, 186, 0.2);
 }
 

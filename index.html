@@ -18,6 +18,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+  <link rel="modulepreload" href="app.mjs">
   <link rel="modulepreload" href="/scripts/createElement.mjs">
   <link rel="modulepreload" href="/scripts/addFilm.mjs">
   <link rel="modulepreload" href="/scripts/removeFilm.mjs">
@@ -36,7 +37,7 @@
   <main>
     <h1>DVDs</h1>
     <div class="searchbar">
-      <input type="text" autocomplete="off" spellcheck="false" placeholder="Search">
+      <input type="text" autocomplete="off" spellcheck="false" placeholder="Search" aria-label="Search">
       <button>+</button>
     </div>
     <div class="results">
@@ -47,10 +48,10 @@
   </main>
   <aside class="sidepanel">
     <h2>Search for</h2>
-    <ul class="search-list">
-      <a href="/"><li>DVDs</li></a>
-      <a href="/books"><li>Books</li></a>
-    </ul>
+    <div class="search-list">
+      <a href="/"><span>DVDs</span></a>
+      <a href="/books"><span>Books</span></a>
+    </div>
     <div class="settings">
       <span class="theme">
         <span>Theme</span>
