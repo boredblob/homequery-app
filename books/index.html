@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#111111">
   <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Domine&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/main.css" />
   <link rel="manifest" href="/manifest.json">
   
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -19,11 +19,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <link rel="modulepreload" href="/scripts/createElement.mjs">
-  <link rel="modulepreload" href="/scripts/films/addFilm.mjs">
-  <link rel="modulepreload" href="/scripts/films/removeFilm.mjs">
-  <link rel="modulepreload" href="/scripts/films/editFilm.mjs">
+  <link rel="modulepreload" href="/scripts/books/addBook.mjs">
+  <link rel="modulepreload" href="/scripts/books/removeBook.mjs">
+  <link rel="modulepreload" href="/scripts/books/editBook.mjs">
   <link rel="modulepreload" href="/scripts/crypto.mjs">
-  <link rel="modulepreload" href="/scripts/films/results.mjs">
+  <link rel="modulepreload" href="/scripts/books/results.mjs">
   <link rel="preconnect" href="https://homequery.herokuapp.com/">
 </head>
 <body>
@@ -34,7 +34,7 @@
   <span class="online-indicator">Online</span>
   <div class="overlay"></div>
   <main>
-    <h1>DVDs</h1>
+    <h1>Books</h1>
     <div class="searchbar">
       <input type="text" autocomplete="off" spellcheck="false" placeholder="Search" aria-label="Search">
       <button>+</button>
@@ -66,19 +66,6 @@
   <script type="text/javascript" src="/scripts/onlineUI.js"></script>
   <script type="text/javascript" src="/scripts/sidepanel.js"></script>
   <script type="text/javascript" src="/pwa.js"></script>
-  <script type="module" src="/scripts/films/app.mjs"></script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/sw.js")
-          .then(reg => {
-            console.log("Registered");
-          })
-          .catch(err => {
-            console.log("Registration failed.\n" + err);
-          });
-      });
-    }
-  </script>
+  <script type="module" src="/scripts/books/app.mjs"></script>
 </body>
 </html>

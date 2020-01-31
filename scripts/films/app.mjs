@@ -1,5 +1,5 @@
-import {empty} from "/scripts/addFilm.mjs";
-import {loadFilms, getFilms} from "/scripts/results.mjs";
+import {empty} from "/scripts/films/addFilm.mjs";
+import {loadFilms, getFilms} from "/scripts/films/results.mjs";
 
 const searchbar = document.querySelector("main .searchbar input");
 

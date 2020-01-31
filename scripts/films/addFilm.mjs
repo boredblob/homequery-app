@@ -1,21 +1,22 @@
-import {loadFilms} from "/scripts/results.mjs";
-import {getSignature} from "/scripts/crypto.mjs";
 import {createElement} from "/scripts/createElement.mjs";
+import {loadFilms} from "/scripts/films/results.mjs";
+import {getSignature} from "/scripts/crypto.mjs";
 import {showError} from "/scripts/error.mjs";
 
 const results = document.querySelector("main .results");
+const addFilmBtn = document.querySelector("main .searchbar button");
 
-export async function editEntry() {
-  const id = this.parentElement.getAttribute("_id");
-  const oldResult = this.parentElement;
-
-  const wrapper = createElement("div", "new-film result");
+function newEntry() {
+  addFilmBtn.onclick = null;
+  const wrapper = createElement("div", "new-entry result");
   const filmForm = createElement("form");
   const titleInput = createElement("input");
   const submitBtn = createElement("button");
   const tick = createElement("img");
   
-  filmForm.onsubmit = e => {editFilm(e, id); return false;};
+  wrapper.style.maxHeight = "0px";
+  
+  filmForm.onsubmit = e => {addFilm(e); return false;};
 
   titleInput.type = "text";
   titleInput.autocomplete = "off";
@@ -23,7 +24,6 @@ export async function editEntry() {
   titleInput.placeholder = "Title";
   titleInput.id = titleInput.name = "title";
   titleInput.maxLength = 50;
-  titleInput.value = oldResult.firstChild.innerHTML;
 
   submitBtn.type = "submit";
   tick.src = "/images/check.svg";
@@ -31,25 +31,33 @@ export async function editEntry() {
   submitBtn.append(tick);
   filmForm.append(titleInput, submitBtn);
   wrapper.appendChild(filmForm);
-  results.replaceChild(wrapper, oldResult);
+  results.insertBefore(wrapper, results.firstChild);
+
+  setTimeout(() => {
+    requestAnimationFrame(() => {
+      wrapper.style = "";
+    });
+  });
 
   titleInput.focus();
 
   function removeNewEntry(e) {
     if (!wrapper.contains(e.target)) {
+      wrapper.style.maxHeight = "0px";
+      setTimeout(() => wrapper.remove(), 120);
+      addFilmBtn.onclick = newEntry; 
       document.body.onclick = null;
-      results.replaceChild(oldResult, wrapper);
     }
   }
 
   requestAnimationFrame(() => {document.body.onclick = removeNewEntry;});
 }
 
-async function editFilm(e, id) {
+async function addFilm(e) {
   const form = e.srcElement;
   const title = new FormData(form).get("title");
-  if (id && title) {
-    const body = {id: id, title: title};
+  if (title) {
+    const body = {title: title};
     const str = JSON.stringify(body);
 
     const options = {
@@ -61,11 +69,11 @@ async function editFilm(e, id) {
       body: str
     };
 
-    fetch("https://homequery.herokuapp.com/dvd/edit", options)
+    fetch("https://homequery.herokuapp.com/dvd/add", options)
       .then(response => {
         if (response.ok) {
           loadFilms();
-          document.body.onclick = null;
+          addFilmBtn.onclick = newEntry; 
         } else {
           if (response.status === 403) {
             if (window.localStorage.getItem("token")) {
@@ -84,3 +92,7 @@ async function editFilm(e, id) {
       });
   }
 }
+
+export const empty = null;
+
+addFilmBtn.onclick = newEntry;

@@ -1,4 +1,4 @@
-import {loadFilms} from "/scripts/results.mjs";
+import {loadBooks} from "/scripts/books/results.mjs";
 import {getSignature} from "/scripts/crypto.mjs";
 import {showError} from "/scripts/error.mjs";
 
@@ -17,10 +17,10 @@ export async function removeEntry() {
       body: str
     };
 
-    fetch("https://homequery.herokuapp.com/dvd/remove", options)
+    fetch("https://homequery.herokuapp.com/book/remove", options)
       .then(response => {
         if (response.ok) {
-          loadFilms();
+          loadBooks();
         } else {
           if (response.status === 403) {
             if (window.localStorage.getItem("token")) {

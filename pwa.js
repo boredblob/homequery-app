@@ -24,6 +24,7 @@
       .then(choice => {
         if (choice.outcome === "accepted") {
           prompt.remove();
+          settings.style = "";
         }
         deferredPrompt = null;
       });
@@ -45,7 +46,7 @@
     rejectBtn.onclick = () => {
       window.sessionStorage.setItem("hidePrompt", "true");
       wrapper.remove();
-      settings.style.marginTop = "";
+      settings.style = "";
     }
 
 

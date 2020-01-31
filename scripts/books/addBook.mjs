@@ -1,14 +1,14 @@
 import {createElement} from "/scripts/createElement.mjs";
-import {loadFilms} from "/scripts/results.mjs";
+import {loadBooks} from "/scripts/books/results.mjs";
 import {getSignature} from "/scripts/crypto.mjs";
 import {showError} from "/scripts/error.mjs";
 
 const results = document.querySelector("main .results");
-const addFilmBtn = document.querySelector("main .searchbar button");
+const addBookBtn = document.querySelector("main .searchbar button");
 
 function newEntry() {
-  addFilmBtn.onclick = null;
-  const wrapper = createElement("div", "new-film result");
+  addBookBtn.onclick = null;
+  const wrapper = createElement("div", "new-entry result");
   const filmForm = createElement("form");
   const titleInput = createElement("input");
   const submitBtn = createElement("button");
@@ -16,7 +16,7 @@ function newEntry() {
   
   wrapper.style.maxHeight = "0px";
   
-  filmForm.onsubmit = e => {addFilm(e); return false;};
+  filmForm.onsubmit = e => {addBook(e); return false;};
 
   titleInput.type = "text";
   titleInput.autocomplete = "off";
@@ -45,7 +45,7 @@ function newEntry() {
     if (!wrapper.contains(e.target)) {
       wrapper.style.maxHeight = "0px";
       setTimeout(() => wrapper.remove(), 120);
-      addFilmBtn.onclick = newEntry; 
+      addBookBtn.onclick = newEntry; 
       document.body.onclick = null;
     }
   }
@@ -53,7 +53,7 @@ function newEntry() {
   requestAnimationFrame(() => {document.body.onclick = removeNewEntry;});
 }
 
-async function addFilm(e) {
+async function addBook(e) {
   const form = e.srcElement;
   const title = new FormData(form).get("title");
   if (title) {
@@ -69,11 +69,11 @@ async function addFilm(e) {
       body: str
     };
 
-    fetch("https://homequery.herokuapp.com/dvd/add", options)
+    fetch("https://homequery.herokuapp.com/book/add", options)
       .then(response => {
         if (response.ok) {
-          loadFilms();
-          addFilmBtn.onclick = newEntry; 
+          loadBooks();
+          addBookBtn.onclick = newEntry; 
         } else {
           if (response.status === 403) {
             if (window.localStorage.getItem("token")) {
@@ -95,4 +95,4 @@ async function addFilm(e) {
 
 export const empty = null;
 
-addFilmBtn.onclick = newEntry;
+addBookBtn.onclick = newEntry;
