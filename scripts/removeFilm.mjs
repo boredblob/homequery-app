@@ -17,7 +17,13 @@ export async function removeEntry() {
       body: str
     };
 
-    const response = await fetch("https://homequery.herokuapp.com/dvd/remove", options);
+    const response = await fetch("https://homequery.herokuapp.com/dvd/remove", options)
+      .catch(err => {
+        console.log("Error adding film:\n" + err);
+        if (!navigator.onLine) {
+          showError("Modifiying the list isn't possible while offline.");
+        }
+      });;
     if (response.ok) {
       loadFilms();
     } else {

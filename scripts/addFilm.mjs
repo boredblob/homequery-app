@@ -69,7 +69,13 @@ async function addFilm(e) {
       body: str
     };
 
-    const response = await fetch("https://homequery.herokuapp.com/dvd/add", options);
+    const response = await fetch("https://homequery.herokuapp.com/dvd/add", options)
+      .catch(err => {
+        console.log("Error adding film:\n" + err);
+        if (!navigator.onLine) {
+          showError("Modifiying the list isn't possible while offline.");
+        }
+      });
     if (response.ok) {
       loadFilms();
       addFilmBtn.onclick = newEntry; 
