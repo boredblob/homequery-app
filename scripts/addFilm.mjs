@@ -69,25 +69,27 @@ async function addFilm(e) {
       body: str
     };
 
-    const response = await fetch("https://homequery.herokuapp.com/dvd/add", options)
+    fetch("https://homequery.herokuapp.com/dvd/add", options)
+      .then(response => {
+        if (response.ok) {
+          loadFilms();
+          addFilmBtn.onclick = newEntry; 
+        } else {
+          if (response.status === 403) {
+            if (window.localStorage.getItem("token")) {
+              showError("Sorry, the client token is incorrect.");
+            } else {
+              showError("Please enter the client token to modify the list.");
+            }
+          }
+        }
+      })
       .catch(err => {
         console.log("Error adding film:\n" + err);
         if (!navigator.onLine) {
           showError("Sorry, modifiying the list isn't possible while offline.");
         }
       });
-    if (response.ok) {
-      loadFilms();
-      addFilmBtn.onclick = newEntry; 
-    } else {
-      if (response.status === 403) {
-        if (window.localStorage.getItem("token")) {
-          showError("Sorry, the client token is incorrect.");
-        } else {
-          showError("Please enter the client token to modify the list.");
-        }
-      }
-    }
   }
 }
 
