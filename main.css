@@ -19,6 +19,7 @@ body {
   --tertiary: #c9676f;
   --background: #fbffff;
 
+  --secondary-hover: #ffe4dc;
   --tertiary-hover: #dd8e94;
 
   --accent-background: #597799;
@@ -433,4 +434,60 @@ main .searchbar button:active {
 ::-webkit-scrollbar-thumb {
   background: var(--secondary);
   border-radius: 3.5px;
+}
+
+.install {
+  width: 80%;
+  height: 6rem;
+  display: grid;
+  grid-template: 
+    "a a" 70%
+    "b c" 30% / 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  background: var(--tertiary);
+  color: var(--accent-background-btn);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin-top: auto;
+  box-shadow: 0.2rem 0.2rem 0.5rem rgba(0,0,0,0.3);
+}
+
+.install span {
+  grid-area: a;
+}
+
+.install button {
+  font-family: inherit;
+  color: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+.install .reject-btn {
+  grid-area: b;
+  background: none;
+  color: var(--secondary);
+}
+
+.install .reject-btn:hover,
+.install .reject-btn:active {
+  color: var(--secondary-hover);
+}
+
+.install .install-btn {
+  grid-area: c;
+  background: var(--secondary);
+  color: var(--tertiary);
+  box-shadow: 0.1rem 0.1rem 0.2rem rgba(0,0,0,0.3);
+  width: 6rem;
+  height: 1.5rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 1rem;
+}
+
+.install .install-btn:hover,
+.install .install-btn:active {
+  background: var(--secondary-hover);
 }

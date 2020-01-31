@@ -24,6 +24,7 @@
   <link rel="modulepreload" href="/scripts/editFilm.mjs">
   <link rel="modulepreload" href="/scripts/crypto.mjs">
   <link rel="modulepreload" href="/scripts/results.mjs">
+  <link rel="preconnect" href="https://homequery.herokuapp.com/">
 </head>
 <body>
   <button class="sidepanel-btn">
@@ -60,9 +61,24 @@
       </span>
     </div>
   </aside>
-  <script src="/scripts/theme.js"></script>
-  <script src="/scripts/token.js"></script>
+  <script type="text/javascript" src="/scripts/theme.js"></script>
+  <script type="text/javascript" src="/scripts/token.js"></script>
+  <script type="text/javascript" src="/scripts/onlineUI.js"></script>
+  <script type="text/javascript" src="/pwa.js"></script>
   <script type="module" src="/app.mjs"></script>
-  <script src="/scripts/sidepanel.js"></script>
+  <script type="text/javascript" src="/scripts/sidepanel.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js")
+          .then(reg => {
+            console.log("Registered");
+          })
+          .catch(err => {
+            console.log("Registration failed.\n" + err);
+          });
+      });
+    }
+  </script>
 </body>
 </html>
