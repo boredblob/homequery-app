@@ -20,7 +20,7 @@ function newEntry() {
 
   titleInput.type = "text";
   titleInput.autocomplete = "off";
-  titleInput.spellcheck = "false";
+  titleInput.spellcheck = false;
   titleInput.placeholder = "Title";
   titleInput.id = titleInput.name = "title";
   titleInput.maxLength = 50;
