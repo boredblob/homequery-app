@@ -46,5 +46,3 @@ export async function getFilms() {
     return data;
   }
 }
-
-document.body.oncontextmenu = loadFilms;
