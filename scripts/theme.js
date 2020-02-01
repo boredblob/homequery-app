@@ -1,5 +1,5 @@
 {
-  let theme = getCookie("theme") || ((window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light");
+  let theme = window.localStorage.getItem("theme") || ((window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light");
 
   const themeBtn = document.querySelector(".settings .theme button");
   const themeBtnImage = themeBtn.querySelector("img");
@@ -11,7 +11,7 @@
     } else {
       theme = "dark";
     }
-    document.cookie = "theme=" + theme + ";path='/';samesite=strict";
+    window.localStorage.setItem("theme", theme);
     updateUI();
   }
 
@@ -27,12 +27,6 @@
       themeBtnImage.src = "/images/sun.svg";
       themeBtnImage.alt = "Light";
     }
-  }
-
-  function getCookie(name) {
-    const value = "; " + document.cookie;
-    const parts = value.split("; " + name + "=");
-    if (parts.length == 2) return parts.pop().split(";").shift();
   }
 
   updateUI();

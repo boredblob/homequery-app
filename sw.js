@@ -2,7 +2,7 @@ const cacheName = "dynamic-cache-v1";
 const precacheResources = [
   "/",
   "index.html",
-  "/books",
+  "/books/",
   "/books/index.html",
   "main.css",
   "pwa.js",

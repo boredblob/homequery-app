@@ -395,7 +395,7 @@ main .searchbar button:active {
 
 .results .spinner {
   position: absolute;
-  top: 3rem;
+  top: 3vh;
   left: 50%;
   transform: translateX(-50%);
   shape-rendering: auto;
