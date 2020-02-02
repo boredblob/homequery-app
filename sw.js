@@ -42,9 +42,7 @@ const precacheResources = [
   "images/moon.svg",
   "images/spinner.svg",
   "images/sun.svg",
-  "images/x.svg",
-  "https://fonts.googleapis.com/css?family=Raleway&display=swap",
-  "https://fonts.googleapis.com/css?family=Domine&display=swap"
+  "images/x.svg"
 ];
 
 self.addEventListener("install", e => {
