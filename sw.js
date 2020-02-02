@@ -84,7 +84,7 @@ self.addEventListener('fetch', event => {
       const fetchPromise = fetch(event.request)
         .then(networkResponse => {
           if (!networkResponse.ok) {
-            throw "Bad response";
+            throw "Bad response from " + event.request.url;
           }
           return caches.open(cacheName)
           .then(cache => {
