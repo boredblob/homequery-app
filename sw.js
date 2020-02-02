@@ -6,6 +6,12 @@ const precacheResources = [
   "/books/index.html",
   "main.css",
   "pwa.js",
+  "/404/",
+  "/404/index.html",
+  "/404/app.js",
+  "/404/main.css",
+  "/404/arms.svg",
+  "/404/circle.svg",
   "scripts/films/app.mjs",
   "scripts/films/addFilm.mjs",
   "scripts/films/editFilm.mjs",
@@ -36,7 +42,9 @@ const precacheResources = [
   "images/moon.svg",
   "images/spinner.svg",
   "images/sun.svg",
-  "images/x.svg"
+  "images/x.svg",
+  "https://fonts.googleapis.com/css?family=Raleway&display=swap",
+  "https://fonts.googleapis.com/css?family=Domine&display=swap"
 ];
 
 self.addEventListener("install", e => {
@@ -75,17 +83,21 @@ self.addEventListener('fetch', event => {
     .then(response => {
       const fetchPromise = fetch(event.request)
         .then(networkResponse => {
+          if (!networkResponse.ok) {
+            throw "Bad response";
+          }
           return caches.open(cacheName)
           .then(cache => {
             cache.put(event.request.url, networkResponse.clone());
             return networkResponse;
-          })
+          });
         })
         .catch(err => {
+          console.log("Error while fetching new site.\n" + err);
           return caches.open(cacheName)
             .then(cache => {
               online = false;
-              return cache.match('/');
+              return cache.match('/404/index.html');
             });
         });
       return response || fetchPromise;
