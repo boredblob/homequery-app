@@ -61,16 +61,18 @@ self.addEventListener("install", e => {
 self.addEventListener("activate", e => {
   const cacheKeeplist = [cacheName];
   
-  e.waitUntil(
+  e.waitUntil(async function() {
     caches.keys().then((keyList) => {
       return Promise.all(keyList.map((key) => {
         if (cacheKeeplist.indexOf(key) === -1) {
           return caches.delete(key);
         }
       }));
-      
-    })
-  );
+    });
+    if (self.registration.navigationPreload) {
+      await self.registration.navigationPreload.enable();
+    }
+  }());
   console.log("Activated");
 });
 
@@ -79,8 +81,9 @@ self.addEventListener('fetch', event => {
 
   event.respondWith(caches.match(event.request)
     .then(response => {
-      const fetchPromise = fetch(event.request)
-        .then(networkResponse => {
+      
+      const fetchPromise = event.preloadResponse || fetch(event.request)
+        .then(async networkResponse => {
           if (!networkResponse.ok) {
             throw "Bad response from " + event.request.url;
           }
@@ -90,7 +93,7 @@ self.addEventListener('fetch', event => {
             return networkResponse;
           });
         })
-        .catch(err => {
+        .catch(async err => {
           console.log("Error while fetching new site.\n" + err);
           return caches.open(cacheName)
             .then(cache => {
