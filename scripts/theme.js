@@ -17,7 +17,13 @@
 
   function updateUI() {
     if (theme === "dark") {
-      document.body.style = "--primary: #fbffff; --background: #111414; --heavy-border: 1px solid rgba(255, 202, 186, 0.3); --error: #de495e;"
+      document.body.style = `
+        --primary: #fbffff;
+        --background: #111414;
+        --heavy-border: 1px solid rgba(255, 202, 186, 0.3);
+        --error: #de495e;
+        --button-filter: none;
+      `;
 
       themeBtnImage.src = "/images/moon.svg";
       themeBtnImage.alt = "Dark";

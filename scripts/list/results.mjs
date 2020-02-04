@@ -1,11 +1,13 @@
 import {createElement} from "/scripts/createElement.mjs";
-import {removeEntry} from "/scripts/films/removeFilm.mjs";
-import {editEntry} from "/scripts/films/editFilm.mjs";
+import {removeEntry} from "/scripts/list/removeEntry.mjs";
+import {editEntry} from "/scripts/list/editEntry.mjs";
 
 const results = document.querySelector("main .results");
 
-export async function loadFilms(data_) {
-  const data = data_ || await getFilms();
+export async function loadEntries(data_, type) {
+  if (!type) return;
+
+  const data = data_ || await getEntries(type);
   while (results.children.length) {
     results.firstChild.remove();
   }
@@ -21,11 +23,11 @@ export async function loadFilms(data_) {
 
     result.setAttribute("_id", d._id);
 
-    removeButton.onclick = removeEntry;
+    removeButton.onclick = function() {removeEntry(type, this);};
     removeImage.src = "/images/x.svg";
     removeImage.alt = "Remove";
 
-    editButton.onclick = editEntry;
+    editButton.onclick = function() {editEntry(type, this);};
     editImage.src = "/images/edit.svg";
     removeImage.alt = "Edit";
 
@@ -36,8 +38,10 @@ export async function loadFilms(data_) {
   }
 }
 
-export async function getFilms() {
-  const response = await fetch("https://homequery.herokuapp.com/dvd")
+export async function getEntries(type) {
+  if (!type) return;
+
+  const response = await fetch("https://homequery.herokuapp.com/" + type)
     .catch(err => console.log("Error while fetching data.\n", err));
   if (response.ok) {
     const data = await response.json();

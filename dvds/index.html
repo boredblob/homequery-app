@@ -3,7 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8" />
-  <title>HomeQuery | Books</title>
+  <title>HomeQuery | DVDs</title>
   <meta name="author" content="Omer">
   <meta name="description" content="Searching for things made a little easier.">
   <meta name="theme-color" content="#111111">
@@ -35,7 +35,7 @@
   <span class="online-indicator">Online</span>
   <div class="overlay"></div>
   <main>
-    <h1>Books</h1>
+    <h1>DVDs</h1>
     <div class="searchbar">
       <input type="text" autocomplete="off" spellcheck="false" placeholder="Search" aria-label="Search">
       <button>+</button>
@@ -69,7 +69,20 @@
   <script type="text/javascript" src="/pwa.js"></script>
   <script type="module">
     import init from "/scripts/list/init.mjs";
-    init("book");
+    init("dvd");
   </script>
+  <!-- <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js")
+          .then(reg => {
+            console.log("Registered");
+          })
+          .catch(err => {
+            console.log("Registration failed.\n" + err);
+          });
+      });
+    }
+  </script> -->
 </body>
 </html>

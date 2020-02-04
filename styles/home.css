@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a, a:visited {color: inherit; text-decoration: none; display: contents;}
+button {color: inherit; font-family: inherit; font-size: inherit; font-weight: inherit; cursor: pointer; border: none;}
+
+html {
+  height: 100%;
+  font-family: "Raleway", sans-serif;
+  font-size: calc(16px + (20 - 16) * ((100vmax - 400px) / (1600 - 400)));
+}
+
+body {
+  --text: #111414;
+  --background: #fbffff;
+
+  --primary: #ffcaba;
+  --secondary: #c9676f;
+
+  --blue: #363e59;
+  --blue-hover: #4c5675;
+
+  --github-background: #ffcaba;
+  
+  height: 100%;
+  color: var(--text);
+  background: var(--background);
+  transition: background-color 0.2s ease-in-out;
+}
+
+main {
+  width: 90vw;
+  margin: 0 auto;
+  position: relative;
+  top: 40%;
+  transform: translateY(-50%);
+  max-width: 1200px;
+}
+
+main .wordmark {
+  display: block;
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+}
+
+main .description {
+  margin-top: 3rem;
+  font-size: 1.2rem;
+}
+
+main .account {
+  width: 100%;
+  max-width: 500px;
+  height: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+
+main .account button {
+  width: 45%;
+  height: 100%;
+  background: hsl(var(--hue), 60%, 60%);
+  color: var(--background);
+  font-size: 1.5rem;
+  border-radius: 1.25rem;
+  margin: 0.2rem 0.5rem;
+  box-shadow: 0.2rem 0.2rem 0.5rem rgba(0,0,0,0.3);
+  transition: background-color 0.1s ease-in-out;
+  outline: none;
+}
+
+main .account .signin {--hue: 28;}
+main .account .signup {--hue: 278;}
+
+main .account button:hover,
+main .account button:active {
+  background: hsl(var(--hue), 60%, 70%);
+}
+
+.theme {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.theme button {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  box-shadow: 0.2rem 0.2rem 0.5rem rgba(0,0,0,0.3);
+  transition: background-color 0.1s ease-in-out;
+  outline: none;
+
+  --hue: 22;
+  background: hsl(var(--hue), 64%, 57%);
+  
+  --image: url("/images/sun.svg");
+  -webkit-mask: var(--image) no-repeat center;
+  mask: var(--image) no-repeat center;
+  -webkit-mask-size: 80%;
+  mask-size: 80%;
+}
+
+.theme button:hover,
+.theme button:active {
+  background: hsl(var(--hue), 64%, 70%);
+}
+
+.github {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0.5rem;
+  text-align: right;
+  background: var(--github-background);
+  border-radius: 1rem 0 0 0;
+  transition: background-color 0.2s ease-in-out, opacity 0.1s ease-in-out;
+}
+
+.github a:hover span,
+.github a:active span {
+  opacity: 0.7;
+}
+
+@media all and (max-width: 800px) {
+  main .account button {
+    width: 80%;
+  }
+  main .wordmark {
+    width: 100%;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 3.5px;
+}
+
+::selection { 
+  background: var(--primary);
+}

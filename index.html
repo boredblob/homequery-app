@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/2000/svg">
+<html lang="en">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8" />
   <title>HomeQuery</title>
   <meta name="author" content="Omer">
-  <meta name="description" content="Searching for things made a little easier">
+  <meta name="description" content="Searching for things made a little easier.">
   <meta name="theme-color" content="#111111">
   <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Domine&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/styles/home.css" />
   <link rel="manifest" href="/manifest.json">
   
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -17,68 +17,26 @@
   <link rel="apple-touch-startup-image" href="/icon-512.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-  <link rel="modulepreload" href="/scripts/createElement.mjs">
-  <link rel="modulepreload" href="/scripts/films/addFilm.mjs">
-  <link rel="modulepreload" href="/scripts/films/removeFilm.mjs">
-  <link rel="modulepreload" href="/scripts/films/editFilm.mjs">
-  <link rel="modulepreload" href="/scripts/crypto.mjs">
-  <link rel="modulepreload" href="/scripts/films/results.mjs">
-  <link rel="preconnect" href="https://homequery.herokuapp.com/">
 </head>
 <body>
-  <button class="sidepanel-btn">
-    <img src="/images/menu.svg" alt="Menu">
-  </button>
-  <span class="error"></span>
-  <span class="online-indicator">Online</span>
-  <div class="overlay"></div>
   <main>
-    <h1>DVDs</h1>
-    <div class="searchbar">
-      <input type="text" autocomplete="off" spellcheck="false" placeholder="Search" aria-label="Search">
-      <button>+</button>
-    </div>
-    <div class="results">
-      <svg class="spinner" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-        <path d="M10 50A40 40 0 0 0 90 50A40 42 0 0 1 10 50"></path>
-      </svg>
+    <img class="wordmark" src="/images/wordmark.svg" alt="Wordmark">
+    <p class="description">
+      This little web app was made to help save on pointless rummaging in boxes by organising your DVDs and books into an easily accessible list.
+    </p>
+    <div class="account">
+      <button class="signin">Sign in</button>
+      <button class="signup">Sign up</button>
     </div>
   </main>
-  <aside class="sidepanel">
-    <h2>Search for</h2>
-    <div class="search-list">
-      <a href="/"><span>DVDs</span></a>
-      <a href="/books"><span>Books</span></a>
-    </div>
-    <div class="settings">
-      <span class="theme">
-        <span>Theme</span>
-        <button><img src="/images/sun.svg" alt="Light"></button>
-      </span>
-      <span class="token">
-        <button>Client Token</button>
-      </span>
-    </div>
-  </aside>
-  <script type="text/javascript" src="/scripts/theme.js"></script>
-  <script type="text/javascript" src="/scripts/token.js"></script>
-  <script type="text/javascript" src="/scripts/onlineUI.js"></script>
-  <script type="text/javascript" src="/scripts/sidepanel.js"></script>
-  <script type="text/javascript" src="/pwa.js"></script>
-  <script type="module" src="/scripts/films/app.mjs"></script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/sw.js")
-          .then(reg => {
-            console.log("Registered");
-          })
-          .catch(err => {
-            console.log("Registration failed.\n" + err);
-          });
-      });
-    }
-  </script>
+  <div class="theme">
+    <button></button>
+  </div>
+  <div class="github">
+    <a href="https://github.com/omerismyname/homequery-app">
+      <span>View the code on GitHub</span>
+    </a>
+  </div>
+  <script src="/app.js"></script>
 </body>
 </html>

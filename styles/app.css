@@ -28,6 +28,7 @@ body {
   --accent-background-btn: #1e2d3f;
   --accent-background-btn-hover: #263e5c;
 
+  --button-filter: hue-rotate(180deg) saturate(300%) brightness(0.3);
   --error: maroon;
 
   --thin-border: 1px solid rgba(180, 191, 204, 0.7);
@@ -344,6 +345,7 @@ main .searchbar button:active {
   opacity: 0.5;
   visibility: hidden;
   border-radius: 50%;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .results .result:hover button,
@@ -364,6 +366,8 @@ main .searchbar button:active {
 .results .result button img {
   width: 100%;
   height: 100%;
+  filter: var(--button-filter);
+  transition: filter 0.2s ease-in-out;
 }
 
 .results .new-entry {

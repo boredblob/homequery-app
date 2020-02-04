@@ -1,13 +1,15 @@
-import {loadBooks} from "/scripts/books/results.mjs";
+import {loadEntries} from "/scripts/list/results.mjs";
 import {getSignature} from "/scripts/crypto.mjs";
 import {showError} from "/scripts/error.mjs";
 
-export async function removeEntry() {
-  const id = this.parentElement.getAttribute("_id");
-  if (id) {
+export async function removeEntry(type, srcbutton, confirmed = false) {
+  if (confirmed) {
+    const id = srcbutton.parentElement.getAttribute("_id");
+    if (!id || !type) return;
+  
     const body = {id: id};
     const str = JSON.stringify(body);
-
+  
     const options = {
       method: "POST",
       headers: {
@@ -16,11 +18,11 @@ export async function removeEntry() {
       },
       body: str
     };
-
-    fetch("https://homequery.herokuapp.com/book/remove", options)
+  
+    fetch("https://homequery.herokuapp.com/" + type + "/remove", options)
       .then(response => {
         if (response.ok) {
-          loadBooks();
+          loadEntries(null, type);
         } else {
           if (response.status === 403) {
             if (window.localStorage.getItem("token")) {
@@ -37,5 +39,15 @@ export async function removeEntry() {
           showError("Sorry, modifiying the list isn't possible while offline.");
         }
       });
+  } else {
+    srcbutton.style.background = "maroon";
+    srcbutton.style.setProperty("--button-filter", "none");
+    srcbutton.onclick = function() {removeEntry(type, this, true);};
+    srcbutton.onblur = async e => {
+      srcbutton.style.background = "";
+      srcbutton.style.setProperty("--button-filter", "");
+      srcbutton.onclick = function() {removeEntry(type, this);};
+      srcbutton.onblur = null;
+    }
   }
 }
