@@ -12,14 +12,18 @@
       main.onclick = null;
       panelOpen = false;
       sidepanelBtn.removeAttribute("checked");
-      sidepanelBtn.firstElementChild.src = "/images/menu.svg";
+      setTimeout(() => {
+        sidepanelBtn.firstElementChild.src = "/images/menu.svg";
+      }, 150);
     } else {
       sidepanel.style = "transform: none;";
       overlay.style = "background-color: rgba(0,0,0,0.5);";
       main.onclick = toggleSidepanel;
       panelOpen = true;
       sidepanelBtn.setAttribute("checked", "");
-      sidepanelBtn.firstElementChild.src = "/images/x.svg";
+      setTimeout(() => {
+        sidepanelBtn.firstElementChild.src = "/images/x.svg";
+      }, 150);
     }
   }
 
