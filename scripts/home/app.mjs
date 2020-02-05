@@ -58,13 +58,15 @@ function SignUp(e) {
       if (response.ok) {
         SignIn(data);
       } else {
-        const err = await response.text();
-        console.log(err);
-        console.log("error signing up");
+        const err = await response.json();
+        console.log("Error signing up: " + (err.message || err));
         if (err.message) showError(err.message);
       }
     })
-    .catch(err => console.log("Error signing up: " + err))
+    .catch(err => {
+      console.log("Error signing up: " + (err.message || err));
+      if (err.message) showError(err.message);
+    });
 }
 
 function SignIn(e) {
@@ -79,7 +81,7 @@ function SignIn(e) {
       "Content-type": "application/json"
     }
   }
-  fetch(apiURL + "/user/signin", options)
+  fetch(apiURL + "user/signin", options)
     .then(async response => {
       if (response.ok) {
         const data = await response.json();
@@ -90,11 +92,14 @@ function SignIn(e) {
         }
       } else {
         const err = await response.json();
-        console.log("error signing in");
+        console.log("Error signing in: " + (err.message || err));
         if (err.message) showError(err.message);
       }
     })
-    .catch(err => console.log("Error signing up: " + err))
+    .catch(err => {
+      console.log("Error signing in: " + (err.message || err));
+      if (err.message) showError(err.message);
+    });
 }
 
 function signedIn() {
