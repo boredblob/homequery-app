@@ -1,8 +1,10 @@
 const cacheName = "dynamic-cache-v1";
-const precacheResources = [
+const siteResources = [
   "/",
   "/books",
   "/dvds",
+  "/books/",
+  "/dvds/",
   "index.html",
   "books/index.html",
   "dvds/index.html",
@@ -50,11 +52,12 @@ const precacheResources = [
   "styles/app.css",
   "styles/home.css",
   //Fallback
+  "404/",
+  "404/index.html",
+  "404/main.css",
   "404/app.js",
   "404/arms.svg",
   "404/circle.svg",
-  "404/index.html",
-  "404/main.css",
 ];
 
 self.addEventListener("install", e => {
@@ -62,7 +65,7 @@ self.addEventListener("install", e => {
   e.waitUntil(
     caches.open(cacheName)
       .then(cache => {
-        return cache.addAll(precacheResources);
+        return cache.addAll(siteResources);
       })
       .catch(err => {
         console.error("Error while installing: ", err)
@@ -82,38 +85,37 @@ self.addEventListener("activate", e => {
       }));
     });
     if (self.registration.navigationPreload) {
-      await self.registration.navigationPreload.enable();
+      await self.registration.navigationPreload.disable();
     }
   }());
   console.log("Activated");
 });
 
-self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
-
-  event.respondWith(caches.match(event.request)
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request)
     .then(async response => {
-      
-      const fetchPromise = await event.preloadResponse || fetch(event.request)
-        .then(async networkResponse => {
-          if (!networkResponse.ok && networkResponse.status !== 0) {
-            throw "Bad response from " + event.request.url;
-          }
-          return caches.open(cacheName)
-          .then(cache => {
-            cache.put(event.request.url, networkResponse.clone());
-            return networkResponse;
-          });
-        })
-        .catch(async err => {
-          console.log("Error while fetching new site.\n" + err);
-          return caches.open(cacheName)
+      const networkResponse = fetch(event.request)
+        .then(res => {
+          let clonedResponse = res.clone();
+          caches.open(cacheName)
             .then(cache => {
-              online = false;
-              return cache.match('/404/index.html');
-            });
+              cache.put(event.request.url, clonedResponse);
+            })
+          .catch(err => {
+            console.log("Failed to save network response");
+          });
+
+          return res;
         });
-      return response || fetchPromise;
+      if (siteResources.includes(event.request.url)) {
+        return response || await networkResponse;
+      } else {
+        return await networkResponse || response;
+      }
+    }).catch(err => {
+      console.log(err);
+      return caches.match('/404/index.html');
     })
   );
 });

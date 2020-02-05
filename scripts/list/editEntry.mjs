@@ -7,6 +7,7 @@ const results = document.querySelector("main .results");
 
 export async function editEntry(type, srcbutton) {
   if (!type) return;
+  if (!navigator.onLine) return showError("Sorry, modifiying the list isn't possible while offline.");
   const id = srcbutton.parentElement.getAttribute("_id");
   const oldResult = srcbutton.parentElement;
 

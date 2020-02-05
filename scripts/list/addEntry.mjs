@@ -10,6 +10,7 @@ let noResults;
 export function loadAddButton(type) {
   if (!type) return;
   function newEntry() {
+    if (!navigator.onLine) return showError("Sorry, modifiying the list isn't possible while offline.");
     addEntryBtn.onclick = null;
 
     noResults = document.querySelector(".no-results");

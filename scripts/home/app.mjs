@@ -41,6 +41,7 @@ function getFormData(e) {
 }
 
 function SignUp(e) {
+  if (!navigator.onLine) return showError("Signing up is not possible while offline.");
   const data = getFormData(e);
   console.log("")
   const options = {
@@ -70,6 +71,7 @@ function SignUp(e) {
 }
 
 function SignIn(e) {
+  if (!navigator.onLine) return showError("Signing in is not possible while offline.");
   const {username, password} = (!e.username || !e.password) ? getFormData(e) : e;
   const options = {
     method: "POST",
@@ -105,7 +107,7 @@ function SignIn(e) {
 function signedIn() {
   updateState();
   if (token && user) {
-    window.location.href = "/dvds";
+    window.location.href = "/dvds/";
     return true;
   }
   return false;

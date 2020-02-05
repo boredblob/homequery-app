@@ -3,6 +3,7 @@ import {showError} from "/scripts/error.mjs";
 import {authURL, token} from "/scripts/state.mjs";
 
 export async function removeEntry(type, srcbutton, confirmed = false) {
+  if (!navigator.onLine) return showError("Sorry, modifiying the list isn't possible while offline.");
   if (confirmed) {
     const id = srcbutton.parentElement.getAttribute("_id");
     if (!id || !type) return;
