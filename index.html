@@ -42,6 +42,19 @@
       <span>View the code on GitHub</span>
     </a>
   </div>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js")
+          .then(reg => {
+            console.log("Registered");
+          })
+          .catch(err => {
+            console.log("Registration failed.\n" + err);
+          });
+      });
+    }
+  </script>
   <script type="text/javascript" src="/scripts/home/theme.js"></script>
   <script type="module" src="/scripts/home/app.mjs"></script>
 </body>
