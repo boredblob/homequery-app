@@ -17,13 +17,18 @@
   <link rel="apple-touch-startup-image" href="/icon-512.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="modulepreload" href="/scripts/home/buttons.mjs">
+  <link rel="modulepreload" href="/scripts/home/app.mjs">
+  <link rel="modulepreload" href="/scripts/state.mjs">
 </head>
 <body>
   <main>
     <img class="wordmark" src="/images/wordmark.svg" alt="Wordmark">
     <p class="description">
-      This little web app was made to help save on pointless rummaging in boxes by organising your DVDs and books into an easily accessible list.
+      Help save on pointless rummaging in boxes by organising your DVDs and books into an easily accessible list.
     </p>
+    <span class="error"></span>
     <div class="account">
       <button class="signin">Sign in</button>
       <button class="signup">Sign up</button>
@@ -37,6 +42,7 @@
       <span>View the code on GitHub</span>
     </a>
   </div>
-  <script src="/app.js"></script>
+  <script type="text/javascript" src="/scripts/home/theme.js"></script>
+  <script type="module" src="/scripts/home/app.mjs"></script>
 </body>
 </html>

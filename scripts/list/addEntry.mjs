@@ -1,15 +1,20 @@
 import {createElement} from "/scripts/createElement.mjs";
 import {loadEntries} from "/scripts/list/results.mjs";
-import {getSignature} from "/scripts/crypto.mjs";
+import {authURL, token} from "/scripts/state.mjs";
 import {showError} from "/scripts/error.mjs";
 
 const results = document.querySelector("main .results");
 const addEntryBtn = document.querySelector("main .searchbar button");
+let noResults;
 
 export function loadAddButton(type) {
   if (!type) return;
   function newEntry() {
     addEntryBtn.onclick = null;
+
+    noResults = document.querySelector(".no-results");
+    if (noResults) noResults.remove();
+
     const wrapper = createElement("div", "new-entry result");
     const form = createElement("form");
     const titleInput = createElement("input");
@@ -18,7 +23,7 @@ export function loadAddButton(type) {
     
     wrapper.style.maxHeight = "0px";
     
-    form.onsubmit = e => {submitNewEntry(e, type); return false;};
+    form.onsubmit = e => {e.preventDefault(); submitNewEntry(e, type); return false;};
   
     titleInput.type = "text";
     titleInput.autocomplete = "off";
@@ -49,6 +54,10 @@ export function loadAddButton(type) {
         setTimeout(() => wrapper.remove(), 120);
         addEntryBtn.onclick = newEntry; 
         document.body.onclick = null;
+        if (noResults) {
+          results.append(noResults);
+          noResults = null;
+        }
       }
     }
   
@@ -65,25 +74,17 @@ export function loadAddButton(type) {
       const options = {
         method: "POST",
         headers: {
-          "x-app-signature": await getSignature(str),
+          "token": token,
           "content-type": "application/json"
         },
         body: str
       };
   
-      fetch("https://homequery.herokuapp.com/" + type + "/add", options)
+      fetch(authURL + type + "/add", options)
         .then(response => {
           if (response.ok) {
             loadEntries(null, type);
             addEntryBtn.onclick = newEntry; 
-          } else {
-            if (response.status === 403) {
-              if (window.localStorage.getItem("token")) {
-                showError("Sorry, the client token is incorrect.");
-              } else {
-                showError("Please enter the client token to modify the list.");
-              }
-            }
           }
         })
         .catch(err => {

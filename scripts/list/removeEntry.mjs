@@ -1,6 +1,6 @@
 import {loadEntries} from "/scripts/list/results.mjs";
-import {getSignature} from "/scripts/crypto.mjs";
 import {showError} from "/scripts/error.mjs";
+import {authURL, token} from "/scripts/state.mjs";
 
 export async function removeEntry(type, srcbutton, confirmed = false) {
   if (confirmed) {
@@ -13,28 +13,20 @@ export async function removeEntry(type, srcbutton, confirmed = false) {
     const options = {
       method: "POST",
       headers: {
-        "x-app-signature": await getSignature(str),
+        "token": token,
         "content-type": "application/json"
       },
       body: str
     };
   
-    fetch("https://homequery.herokuapp.com/" + type + "/remove", options)
+    fetch(authURL + type + "/remove", options)
       .then(response => {
         if (response.ok) {
           loadEntries(null, type);
-        } else {
-          if (response.status === 403) {
-            if (window.localStorage.getItem("token")) {
-              showError("Sorry, the client token is incorrect.");
-            } else {
-              showError("Please enter the client token to modify the list.");
-            }
-          }
         }
       })
       .catch(err => {
-        console.log("Error adding film:\n" + err);
+        console.log("Error adding " + type + ":\n" + err);
         if (!navigator.onLine) {
           showError("Sorry, modifiying the list isn't possible while offline.");
         }

@@ -16,7 +16,12 @@ function toggleTheme() {
 
 function updateUI() {
   if (theme === "dark") {
-    document.body.style = "--text: #fbffff; --background: #111414; --github-background: #2b2f2f;"
+    document.body.style = `
+      --text: #fbffff;
+      --background: #111414;
+      --github-background: #2b2f2f;
+      --error: #de495e;
+    `;
 
     setTimeout(() => {
       themeBtn.style = "--image: url('/images/moon.svg'); --hue: 40;";

@@ -1,7 +1,7 @@
 import {loadEntries} from "/scripts/list/results.mjs";
-import {getSignature} from "/scripts/crypto.mjs";
 import {createElement} from "/scripts/createElement.mjs";
 import {showError} from "/scripts/error.mjs";
+import {authURL, token} from "/scripts/state.mjs";
 
 const results = document.querySelector("main .results");
 
@@ -16,7 +16,7 @@ export async function editEntry(type, srcbutton) {
   const submitBtn = createElement("button");
   const tick = createElement("img");
   
-  filmForm.onsubmit = e => {submitEdit(e, id, type); return false;};
+  filmForm.onsubmit = e => {e.preventDefault(); submitEdit(e, id, type); return false;};
 
   titleInput.type = "text";
   titleInput.autocomplete = "off";
@@ -56,25 +56,17 @@ async function submitEdit(e, id, type) {
     const options = {
       method: "POST",
       headers: {
-        "x-app-signature": await getSignature(str),
+        "token": token,
         "content-type": "application/json"
       },
       body: str
     };
 
-    fetch("https://homequery.herokuapp.com/" + type + "/edit", options)
+    fetch(authURL + type + "/edit", options)
       .then(response => {
         if (response.ok) {
           loadEntries(null, type);
           document.body.onclick = null;
-        } else {
-          if (response.status === 403) {
-            if (window.localStorage.getItem("token")) {
-              showError("Sorry, the client token is incorrect.");
-            } else {
-              showError("Please enter the client token to modify the list.");
-            }
-          }
         }
       })
       .catch(err => {
