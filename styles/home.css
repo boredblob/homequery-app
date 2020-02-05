@@ -4,7 +4,7 @@
 }
 
 a, a:visited {color: inherit; text-decoration: none; display: contents;}
-button, input {color: inherit; font-family: inherit; font-size: inherit; font-weight: inherit; border: none;}
+button, input {color: inherit; font-family: inherit; font-size: inherit; font-weight: inherit; border: none; outline: none;}
 button {cursor: pointer;}
 
 html {
@@ -114,10 +114,32 @@ main .account > button > div {
   color: var(--offwhite);
   border-bottom: 2px solid var(--offwhite);
   outline: none;
+  transition: border-color 0.3s ease-in-out;
 }
 
 .account-form input::placeholder {
   color: rgba(255, 255, 255, 0.5);
+}
+
+.account-form input:active, .account-form input:focus {
+  outline: none;
+  border-color: lightskyblue;
+}
+
+.account-form input:valid, .account-form input:valid:hover{
+  background: none;
+  border-color: lightgreen;
+}
+
+.account-form input:-webkit-autofill,
+.account-form input:-webkit-autofill:hover,
+.account-form input:-webkit-autofill:focus {
+  box-shadow: 0 0 0px 1000px hsl(var(--hue), 60%, 60%) inset;
+  -webkit-text-fill-color: white;
+}
+
+.account-form input:invalid {
+  outline: none;
 }
 
 .account-form button {
