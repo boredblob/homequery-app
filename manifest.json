@@ -45,7 +45,7 @@
       "purpose": "maskable any"
     }
   ],
-  "start_url": "/",
+  "start_url": "/dvds/",
   "background_color": "#ccb5b4",
   "display": "fullscreen",
   "orientation": "portrait",
