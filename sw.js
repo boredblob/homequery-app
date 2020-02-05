@@ -94,7 +94,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(caches.match(event.request)
     .then(async response => {
       
-      const fetchPromise = event.preloadResponse || fetch(event.request)
+      const fetchPromise = await event.preloadResponse || fetch(event.request)
         .then(async networkResponse => {
           if (!networkResponse.ok && networkResponse.status !== 0) {
             throw "Bad response from " + event.request.url;
@@ -113,7 +113,7 @@ self.addEventListener('fetch', event => {
               return cache.match('/404/index.html');
             });
         });
-      return response || await fetchPromise;
+      return response || fetchPromise;
     })
   );
 });
