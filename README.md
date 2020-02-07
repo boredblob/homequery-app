@@ -1,6 +1,6 @@
 # HomeQuery
 
-A site to help locate things a little more easily.
+Help save on pointless rummaging in boxes by organising your DVDs and books into an easily accessible list.
 
 ### Acknowledgements
 
