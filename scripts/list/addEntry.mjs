@@ -50,7 +50,7 @@ export function loadAddButton(type) {
     titleInput.focus();
   
     function removeNewEntryForm(e) {
-      if (!wrapper.contains(e.target)) {
+      if (document.body.contains(wrapper) && !wrapper.contains(e.target)) {
         wrapper.style.maxHeight = "0px";
         setTimeout(() => wrapper.remove(), 120);
         addEntryBtn.onclick = newEntry; 
