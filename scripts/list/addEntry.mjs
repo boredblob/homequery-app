@@ -24,7 +24,7 @@ export function loadAddButton(type) {
     
     wrapper.style.maxHeight = "0px";
     
-    form.onsubmit = e => {e.preventDefault(); submitNewEntry(e, type); return false;};
+    form.onsubmit = e => {e.preventDefault(); submitNewEntry(e, type, wrapper); return false;};
   
     titleInput.type = "text";
     titleInput.autocomplete = "off";
@@ -50,7 +50,8 @@ export function loadAddButton(type) {
     titleInput.focus();
   
     function removeNewEntryForm(e) {
-      if (document.body.contains(wrapper) && !wrapper.contains(e.target)) {
+      if (!wrapper) return;
+      if (!wrapper.contains(e.target)) {
         wrapper.style.maxHeight = "0px";
         setTimeout(() => wrapper.remove(), 120);
         addEntryBtn.onclick = newEntry; 
@@ -65,7 +66,7 @@ export function loadAddButton(type) {
     requestAnimationFrame(() => {document.body.onclick = removeNewEntryForm;});
   }
 
-  async function submitNewEntry(e, type) {
+  async function submitNewEntry(e, type, wrapper) {
     const form = e.srcElement;
     const title = new FormData(form).get("title");
     if (title) {
@@ -86,6 +87,7 @@ export function loadAddButton(type) {
           if (response.ok) {
             loadEntries(null, type);
             addEntryBtn.onclick = newEntry; 
+            wrapper = noResults = null;
           }
         })
         .catch(err => {
