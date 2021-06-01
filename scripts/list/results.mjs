@@ -1,7 +1,7 @@
 import {createElement} from "/scripts/createElement.mjs";
 import {removeEntry} from "/scripts/list/removeEntry.mjs";
 import {editEntry} from "/scripts/list/editEntry.mjs";
-import {authURL} from "/scripts/state.mjs"
+import {updateState, authURL} from "/scripts/state.mjs"
 
 const results = document.querySelector("main .results");
 
@@ -44,13 +44,14 @@ export async function loadEntries(data_, type) {
 }
 
 export async function getEntries(type) {
+  updateState();
   if (!type) return;
-  const user = window.localStorage.getItem("user");
   const options = {
     method: "GET",
     headers: {
       "token": window.localStorage.getItem("token")
-    }
+    },
+    cache: "no-cache"
   };
 
   try {
