@@ -1,6 +1,7 @@
 import {createElement} from "/scripts/createElement.mjs";
 import {removeEntry} from "/scripts/list/removeEntry.mjs";
 import {editEntry} from "/scripts/list/editEntry.mjs";
+import {authURL} from "/scripts/state.mjs"
 
 const results = document.querySelector("main .results");
 
@@ -53,7 +54,7 @@ export async function getEntries(type) {
   };
 
   try {
-    const response = await fetch("https://homequery.herokuapp.com/" + user + "/" + type, options);
+    const response = await fetch(authURL + type, options);
     if (response.ok) {
       const data = await response.json();
       return data;

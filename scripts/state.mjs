@@ -6,5 +6,5 @@ export function updateState() {
 
 export let user = window.localStorage.getItem("user");
 export let token = window.localStorage.getItem("token");
-export let apiURL = "https://homequery.herokuapp.com/";
+export let apiURL = "https://homequery-api.omer.ws/";
 export let authURL = apiURL + user + "/";
